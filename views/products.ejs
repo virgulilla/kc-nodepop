@@ -1,0 +1,50 @@
+<%- include('partials/header', { title: 'Lista de Productos - Nodepop', session: session }) %>
+
+<section class="products-section">
+  <div class="products-header">
+    <h2>Mis Productos</h2>
+    <a href="/products/add" class="btn btn-success">+ Nuevo Producto</a>
+  </div>
+
+  <% if (products.length === 0) { %>
+    <p>No tienes productos aún.</p>
+  <% } else { %>
+    <div class="product-list">
+      <% products.forEach(product => { %>
+        <article class="product-card">
+          <img src="/images/<%= product.image %>" alt="<%= product.name %>" class="product-image" />
+          
+          <div class="product-info">
+            <h3><%= product.name %></h3>
+            <p><strong>Precio:</strong> <%= product.price %>€</p>
+            <p><strong>Tags:</strong> <%= product.tags.join(', ') %></p>
+
+            <div class="product-actions">
+              <form action="/products/<%= product._id %>/delete" method="POST" onsubmit="return confirm('¿Estás seguro de eliminar este producto?');">
+                <button type="submit" class="btn btn-danger">Eliminar</button>
+              </form>
+            </div>
+          </div>
+        </article>
+      <% }); %>
+    </div>
+  <% } %>
+
+  <!-- Paginación -->
+  <% if (totalPages > 1) { %>
+    <nav class="pagination">
+      <% if (currentPage > 1) { %>
+        <a href="?page=<%= currentPage - 1 %>&limit=<%= limit %>" class="btn btn-secondary">Anterior</a>
+      <% } %>
+
+      <span>Página <%= currentPage %> de <%= totalPages %></span>
+
+      <% if (currentPage < totalPages) { %>
+        <a href="?page=<%= currentPage + 1 %>&limit=<%= limit %>" class="btn btn-secondary">Siguiente</a>
+      <% } %>
+    </nav>
+  <% } %>
+
+</section>
+
+<%- include('partials/footer') %>

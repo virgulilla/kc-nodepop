@@ -1,0 +1,23 @@
+<%- include('partials/header', { title: 'Error - Nodepop', session: session }) %>
+
+<section class="error-section">
+  <h2>¡Vaya! Ha ocurrido un error</h2>
+
+  <p class="error-message"><%= message %></p>
+
+  <% if (error && error.status) { %>
+    <p class="error-status">Código de error: <%= error.status %></p>
+  <% } %>
+
+  <div class="error-actions">
+    <a href="/" class="btn btn-primary">Ir a la página principal</a>
+
+    <% if (session.userId) { %>
+      <a href="/products" class="btn btn-secondary">Ver mis productos</a>
+    <% } else { %>
+      <a href="/login" class="btn btn-secondary">Iniciar sesión</a>
+    <% } %>
+  </div>
+</section>
+
+<%- include('partials/footer') %>

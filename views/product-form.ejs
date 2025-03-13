@@ -1,0 +1,43 @@
+<%- include('partials/header', { title: 'Crear Producto - Nodepop', session: session }) %>
+
+<section class="create-product-section">
+  <h2>Crear Producto</h2>
+
+  <% if (error) { %>
+    <p class="error-message"><%= error %></p>
+  <% } %>
+
+  <form action="/products/create" method="POST" class="form-box">
+    <div class="form-group">
+      <label for="name">Nombre del producto:</label>
+      <input type="text" id="name" name="name" placeholder="Ej: iPhone 12" required />
+    </div>
+
+    <div class="form-group">
+      <label for="price">Precio (€):</label>
+      <input type="number" id="price" name="price" placeholder="Ej: 500" required />
+    </div>
+
+    <div class="form-group">
+      <label for="tags">Categorías (selecciona una o varias):</label>
+      <select name="tags" id="tags" multiple size="4">
+        <option value="work">Work</option>
+        <option value="lifestyle">Lifestyle</option>
+        <option value="motor">Motor</option>
+        <option value="mobile">Mobile</option>
+      </select>      
+    </div>
+
+    <div class="form-group">
+      <label for="image">Nombre de la imagen:</label>
+      <input type="text" id="image" name="image" placeholder="Ej: iphone12.jpg" />      
+    </div>
+
+    <div class="form-actions">
+      <button type="submit" class="btn btn-primary">Publicar Producto</button>
+      <a href="/products" class="btn btn-secondary">Cancelar</a>
+    </div>
+  </form>
+</section>
+
+<%- include('partials/footer') %>

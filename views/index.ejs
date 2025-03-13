@@ -1,0 +1,44 @@
+<%- include('partials/header', { title: 'Login - Nodepop', session: session }) %>
+
+<main class="container">
+  <!-- Hero Section -->
+  <section class="hero">
+    <h2>Compra y vende fácilmente con Nodepop</h2>
+    <p>Descubre la forma más rápida de encontrar gangas cerca de ti. Publica tus productos en segundos y llega a miles de usuarios.</p>
+    <% if (!session.userId) { %>
+      <a href="/login" class="btn btn-primary">Empieza ahora</a>
+    <% } else { %>
+      <a href="/products" class="btn btn-primary">Ver productos</a>
+    <% } %>
+  </section>
+
+  <!-- Features Section -->
+  <section class="features">
+    <div class="feature">
+      <h3>Publica en segundos</h3>
+      <p>Sube tus productos de forma sencilla y empieza a vender desde ya. Solo necesitas una foto y un precio.</p>
+    </div>
+    <div class="feature">
+      <h3>Chatea con compradores</h3>
+      <p>Contacta fácilmente con los interesados y cierra tus ventas de manera rápida y segura.</p>
+    </div>
+    <div class="feature">
+      <h3>Encuentra lo que buscas</h3>
+      <p>Explora miles de productos de segunda mano: móviles, coches, moda, y mucho más a precios imbatibles.</p>
+    </div>
+  </section>
+
+  <!-- Call to Action -->
+  <section class="cta">
+    <h2>¿Listo para vender?</h2>
+    <p>Crea tu cuenta y empieza a ganar dinero con las cosas que ya no usas.</p>
+    <% if (!session.userId) { %>
+      <a href="/login" class="btn btn-secondary">Crear cuenta</a>
+    <% } else { %>
+      <a href="/products/create" class="btn btn-primary">Publicar producto</a>
+    <% } %>
+  </section>
+</main>
+
+<%- include('partials/footer') %>
+
