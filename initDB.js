@@ -24,7 +24,7 @@ async function initDB() {
     products.push({
       name: chance.sentence({ words: 3 }),
       price: chance.integer({ min: 10, max: 1000 }),
-      image: chance.pickone(['iphone12.jpg', 'bmwx5.jpg']),
+      image: chance.pickone(['https://images.pexels.com/photos/7657476/pexels-photo-7657476.jpeg?auto=compress&cs=tinysrgb&w=600', 'https://images.pexels.com/photos/404280/pexels-photo-404280.jpeg?auto=compress&cs=tinysrgb&w=600']),
       tags: chance.pickset(['mobile', 'motor', 'lifestyle'], 2),
       owner: chance.pickone([users[0]._id, users[1]._id])
     })

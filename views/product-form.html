@@ -1,0 +1,66 @@
+<%- include('partials/header.html') %>
+
+<section class="create-product-section">
+  <h2>Crear Producto</h2>
+
+  <% if (error) { %>
+    <p class="error-message"><%= error %></p>
+  <% } %>
+
+  <form action="/products/add" method="POST" class="form-box">
+    <div class="form-group">
+      <label for="name">Nombre del producto:</label>
+      <input type="text" id="name" name="name" placeholder="Ej: iPhone 12" required />
+    </div>
+
+    <div class="form-group">
+      <label for="price">Precio (€):</label>
+      <input type="number" id="price" name="price" placeholder="Ej: 500" required />
+    </div>
+
+    <div class="form-group">
+      <label for="tags">Categorías (selecciona una o varias):</label>
+      <select name="tags" id="tags" multiple size="4">
+        <option value="work">Work</option>
+        <option value="lifestyle">Lifestyle</option>
+        <option value="motor">Motor</option>
+        <option value="mobile">Mobile</option>
+      </select>      
+    </div>
+
+    <div class="form-group image-generator-group">
+      <label for="image">Nombre de la imagen:</label>
+      <div class="image-input-container">
+        <input type="text" id="image" name="image"/>
+        <button type="button" id="generateImageBtn" class="btn btn-secondary">Generar Imagen</button>
+      </div>
+      <div id="imagePreview" class="image-preview"></div>
+    </div>
+
+    <div class="form-actions">
+      <button type="submit" class="btn btn-primary">Publicar Producto</button>
+      <a href="/products" class="btn btn-secondary">Cancelar</a>
+    </div>
+  </form>
+</section>
+
+<%- include('partials/footer.html') %>
+
+<script>
+  // Referencias a elementos del DOM
+  const generateBtn = document.getElementById('generateImageBtn');
+  const imageInput = document.getElementById('image');
+  const imagePreview = document.getElementById('imagePreview');
+
+  generateBtn.addEventListener('click', () => {
+    // Generamos un ID aleatorio para la imagen
+    const randomId = Math.floor(Math.random() * 1000);
+    const imageUrl = `https://picsum.photos/id/${randomId}/300/200`;
+
+    // Actualizamos el input con la URL de la imagen
+    imageInput.value = imageUrl;
+
+    // Mostramos la imagen en el preview
+    imagePreview.innerHTML = `<img src="${imageUrl}" alt="Imagen generada" width="300" height="200" />`;
+  });
+</script>

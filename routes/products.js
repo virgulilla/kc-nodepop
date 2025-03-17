@@ -10,18 +10,21 @@ router.get('/', async (req, res, next) => {
   try {
     const filter = {}
     filter.owner = req.session.userId
-    const { tag, price, name, page = 1, limit = 10, sort = 'name' } = req.query
+    const { tag, min, max, name, page = 1, limit = 10, sort = 'name' } = req.query
 
     if (tag) { 
       filter.tags = tag
     }
 
-    if (price) {
-      const [min, max] = price.split('-')
-      if (min && max) filter.price = { $gte: min, $lte: max }
-      else if (min) filter.price = { $gte: min }
-      else if (max) filter.price = { $lte: max }
-      else filter.price = price
+    if (min !== undefined || max !== undefined) {
+      filter.price = {}
+
+      if (min !== undefined) filter.price.$gte = Number(min)
+      if (max !== undefined) filter.price.$lte = Number(max)
+
+      if (Object.keys(filter.price).length === 0) {
+        delete filter.price
+      }
     }
 
     if (name) {
@@ -44,7 +47,8 @@ router.get('/', async (req, res, next) => {
       totalPages,
       totalProducts,
       limit: parseInt(limit),
-      session: req.session 
+      session: req.session,
+      req
     })
 
   } catch (err) {
@@ -63,11 +67,11 @@ router.get('/add', (req, res) => {
   })
 })
 
-router.post('/', isAuthenticated, async (req, res, next) => {
-  try {
-    const { name, price, tags, image } = req.body;
+router.post('/add', isAuthenticated, async (req, res, next) => {
+  const { name, price, tags, image } = req.body;
     const allowedTags = ['work', 'lifestyle', 'motor', 'mobile']
-    const filteredTags = tags.filter(tag => allowedTags.includes(tag))
+    const normalizedTags = Array.isArray(tags) ? tags : [tags] 
+    const filteredTags = normalizedTags.filter(tag => allowedTags.includes(tag))
     const product = new Product({
       name,
       price,
@@ -77,9 +81,6 @@ router.post('/', isAuthenticated, async (req, res, next) => {
     });
     await product.save()
     res.redirect('/products')
-  } catch (err) {
-    next(err)
-  }
 })
 
 
@@ -102,7 +103,7 @@ router.post('/:id/delete', isAuthenticated, async (req, res, next) => {
   } catch (err) {
     next(err);
   }
-});
+})
 
 
 

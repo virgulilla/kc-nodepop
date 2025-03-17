@@ -1,0 +1,129 @@
+<%- include('partials/header.html') %>
+
+<section class="products-section-with-sidebar">
+  
+  <!-- Sidebar de filtros -->
+  <aside class="sidebar-filters">
+    <h3>Filtrar Productos</h3>
+    
+    <form method="GET" action="/products">
+      <!-- Campo de nombre -->
+      <div class="form-group">
+        <label for="name">Nombre:</label>
+        <input type="text" id="name" name="name" value="<%= typeof req.query.name !== 'undefined' ? req.query.name : '' %>" />
+      </div>
+
+      <div class="form-group">
+        <div id="slider"></div>
+        <input type="hidden" name="min" id="price-min">
+        <input type="hidden" name="max" id="price-max">
+      </div>
+
+      <!-- Tags -->
+      <div class="form-group">
+        <label for="tag">Categorías:</label>
+        <select name="tag" id="tag">
+          <option value="">-- Todas --</option>
+          <option value="work" <%= req.query.tag === 'work' ? 'selected' : '' %>>Work</option>
+          <option value="lifestyle" <%= req.query.tag === 'lifestyle' ? 'selected' : '' %>>Lifestyle</option>
+          <option value="motor" <%= req.query.tag === 'motor' ? 'selected' : '' %>>Motor</option>
+          <option value="mobile" <%= req.query.tag === 'mobile' ? 'selected' : '' %>>Mobile</option>
+        </select>
+      </div>
+
+      <!-- Ordenar -->
+      <div class="form-group">
+        <label for="sort">Ordenar por:</label>
+        <select name="sort" id="sort">
+          <option value="name" <%= req.query.sort === 'name' ? 'selected' : '' %>>Nombre (A-Z)</option>
+          <option value="-price" <%= req.query.sort === '-price' ? 'selected' : '' %>>Precio (Mayor a menor)</option>
+          <option value="price" <%= req.query.sort === 'price' ? 'selected' : '' %>>Precio (Menor a mayor)</option>
+        </select>
+      </div>
+
+      <button type="submit" class="btn btn-primary">Aplicar Filtros</button>
+      <a href="/products" class="btn btn-secondary">Limpiar</a>
+    </form>
+  </aside>
+
+  <!-- Contenido principal -->
+  <div class="products-content">
+
+    <div class="products-header">
+      <h2>Mis Productos</h2>
+      <a href="/products/add" class="btn btn-success">+ Nuevo Producto</a>
+    </div>
+
+    <% if (products.length === 0) { %>
+      <p>No tienes productos aún.</p>
+    <% } else { %>
+      <div class="product-list">
+        <% products.forEach(product => { %>
+          <article class="product-card">
+            <img src="<%= product.image %>" alt="<%= product.name %>" class="product-image" />
+            
+            <div class="product-info">
+              <h3><%= product.name %></h3>
+              <p><strong>Precio:</strong> <%= product.price %>€</p>
+              <p><strong>Tags:</strong> <%= product.tags.join(', ') %></p>
+
+              <div class="product-actions">
+                <form action="/products/<%= product._id %>/delete" method="POST" onsubmit="return confirm('¿Estás seguro de eliminar este producto?');">
+                  <button type="submit" class="btn btn-danger">Eliminar</button>
+                </form>
+              </div>
+            </div>
+          </article>
+        <% }); %>
+      </div>
+    <% } %>
+
+    <!-- Paginación -->
+    <% if (totalPages > 1) { %>
+      <nav class="pagination">
+        <% if (currentPage > 1) { %>
+          <a href="?page=<%= currentPage - 1 %>&limit=<%= limit %>" class="btn btn-secondary">Anterior</a>
+        <% } %>
+
+        <span>Página <%= currentPage %> de <%= totalPages %></span>
+
+        <% if (currentPage < totalPages) { %>
+          <a href="?page=<%= currentPage + 1 %>&limit=<%= limit %>" class="btn btn-secondary">Siguiente</a>
+        <% } %>
+      </nav>
+    <% } %>
+
+  </div> <!-- .products-content -->
+
+</section> <!-- .products-section-with-sidebar -->
+
+<%- include('partials/footer.html') %>
+
+<link href="/lib/nouislider/nouislider.min.css" rel="stylesheet">
+<script src="/lib/nouislider/nouislider.min.js"></script>
+<script>  
+  let slider = document.getElementById('slider');
+  const inputMin = document.getElementById('price-min');
+  const inputMax = document.getElementById('price-max');
+  const min = <%= typeof req.query.min !== 'undefined' ? req.query.min : 0 %>;
+  const max = <%= typeof req.query.max !== 'undefined' ? req.query.max : 5000 %>;
+  noUiSlider.create(slider, {
+    start: [min, max],
+    connect: true,
+    tooltips: true,
+    range: {
+        'min': 0,
+        'max': 5000
+    }    
+  });
+ 
+
+  slider.noUiSlider.on('update', function (values, handle) {
+    const value = values[handle]
+    if (handle == 1) {
+      inputMax.value = value;
+    } else {
+      inputMin.value = value;
+    }
+  })
+</script>

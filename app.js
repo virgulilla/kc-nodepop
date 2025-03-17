@@ -1,15 +1,13 @@
 import createError from 'http-errors'
 import express from 'express'
-import path from 'path'
+import path, {dirname} from 'path'
 import cookieParser from 'cookie-parser'
 import logger from 'morgan'
 import session from 'express-session'
 import indexRouter from './routes/index.js'
 import authRouter from './routes/auth.js'
 import productsRouter from './routes/products.js'
-
 import { fileURLToPath } from 'url'
-import { dirname } from 'path'
 
 const app = express()
 
@@ -19,13 +17,16 @@ const __dirname = dirname(__filename)
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'))
-app.set('view engine', 'ejs')
+app.set('view engine', 'html')
+app.engine('html', (await import('ejs')).__express) 
+app.locals.appName = 'NodePop' 
 
 app.use(logger('dev'))
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 app.use(cookieParser())
 app.use(express.static(path.join(__dirname, 'public')))
+app.use('/lib/nouislider', express.static('node_modules/nouislider/dist'));
 
 app.use(session({
   secret: 'RHiiUHJi35XvhJyO86pwbRP26Fxrnaox',
