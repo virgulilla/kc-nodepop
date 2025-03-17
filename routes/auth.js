@@ -12,8 +12,7 @@ router.get('/login', (req, res) => {
   }
 
   res.render('login', {
-    session: req.session,
-    error: null
+    session: req.session
   })
 })
 
@@ -25,10 +24,14 @@ router.post('/login', validateUserFields,  async (req, res, next) => {
     const isPasswordValid = user ? await bcrypt.compare(password, user.password) : false
 
     if (!user || !isPasswordValid) {
-      return res.render('login', {
-        session: req.session,
-        error: 'Credenciales incorrectas'
-      })
+      req.flash('error', 'Credenciales incorrectas')
+
+      const flashMessages = {
+        error: req.flash('error'),
+        success: req.flash('success'),
+      };
+      
+      return res.status(401).render('login', { flashMessages,  session: req.session })
     }
 
     req.session.userId = user._id
