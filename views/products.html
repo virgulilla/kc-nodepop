@@ -70,7 +70,7 @@
 
               <div class="product-actions">
                 <form action="/products/<%= product._id %>/delete" method="POST" onsubmit="return confirm('¿Estás seguro de eliminar este producto?');">                  
-                  <button type="submit" class="btn btn-danger">Eliminar</button>
+                  <a class="del-product" type="submit"><i class="fas fa-trash"></i></a>
                 </form>
               </div>
             </div>

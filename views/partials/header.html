@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title><%= appName %></title>
   <link rel="stylesheet" href="/stylesheets/style.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-..." crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 <body>
     <div class="navigation_HeaderWrapper__container">
@@ -17,10 +18,10 @@
                     <div class="login-wrapper">
                         <a href="/login">Regístrate o inicia sesión</a>
                     </div>
-                    <div><a class="sell-btn" href="/products">Mis productos</a></div>
+                    <div><a class="sell-btn" href="/products"><i class="fas fa-plus"></i>Mis productos</a></div>
                 <% } else { %>                    
                     <div><a href="/logout">Logout</a></div>
-                    <div><a class="sell-btn" href="/products">Mis productos</a></div>
+                    <div><a class="sell-btn" href="/products"><i class="fas fa-plus"></i>Mis productos</a></div>
                 <% } %>
             </div>
         </header>

@@ -393,6 +393,11 @@ footer {
   flex: 1;
 }
 
+.del-product:hover {
+  color: rgb(168, 57, 57);
+  cursor: pointer;
+}
+
 /* ==========================
    PAGINATION
 ========================== */
