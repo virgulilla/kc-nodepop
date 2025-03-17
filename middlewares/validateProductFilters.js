@@ -39,14 +39,14 @@ const validateProductFilters = [
     .trim(),
 
   (req, res, next) => {
-    const errors = validationResult(req);
+    const errors = validationResult(req)
     if (!errors.isEmpty()) {      
-        const errorMessages = errors.array().map(err => err.msg);
-        req.flash('error', errorMessages);
-        return res.redirect('/products');
+        const errorMessages = errors.array().map(err => err.msg)
+        req.flash('error', errorMessages)
+        return res.redirect('/products')
     }
     next();
   }
-];
+]
 
 export default validateProductFilters

@@ -60,7 +60,8 @@
       <div class="product-list">
         <% products.forEach(product => { %>
           <article class="product-card">
-            <img src="<%= product.image %>" alt="<%= product.name %>" class="product-image" />
+            <img src="<%= product.image %>" onerror="this.onerror=null;this.src='https://img.freepik.com/free-vector/images-concept-illustration_114360-218.jpg?t=st=1742221622~exp=1742225222~hmac=417eebf58d19fc9c829cfbacff7edde291755546892eadcaf4430c4c3fe50ce3&w=740'"
+             alt="<%= product.name %>" class="product-image" />
             
             <div class="product-info">
               <h3><%= product.name %></h3>
@@ -68,7 +69,7 @@
               <p><strong>Tags:</strong> <%= product.tags.join(', ') %></p>
 
               <div class="product-actions">
-                <form action="/products/<%= product._id %>/delete" method="POST" onsubmit="return confirm('¿Estás seguro de eliminar este producto?');">
+                <form action="/products/<%= product._id %>/delete" method="POST" onsubmit="return confirm('¿Estás seguro de eliminar este producto?');">                  
                   <button type="submit" class="btn btn-danger">Eliminar</button>
                 </form>
               </div>

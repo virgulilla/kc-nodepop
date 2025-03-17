@@ -1,7 +1,7 @@
 import express from 'express'
 const router = express.Router()
 import Product from '../models/Product.js'
-import isAuthenticated from '../middlewares/auth.js'
+import {isAuthenticated} from '../middlewares/auth.js'
 import validateProductFilters from '../middlewares/validateProductFilters.js'
 
 router.get('/', isAuthenticated, validateProductFilters, async (req, res, next) => {

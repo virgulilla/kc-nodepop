@@ -514,7 +514,7 @@ footer {
   width: 100%;
 }
 .w-100 {
-  width: 100%!important;
+  width: 70%!important;
 }
 .position-relative {
   position: relative!important;
@@ -591,4 +591,3 @@ footer {
   padding: 0;
   list-style: none;
 }
-

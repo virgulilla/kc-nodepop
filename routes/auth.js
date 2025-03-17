@@ -1,6 +1,7 @@
 import express from 'express'
 import User from '../models/User.js'
 import bcrypt from 'bcrypt'
+import {validateUserFields} from '../middlewares/auth.js'
 
 const router = express.Router()
 
@@ -16,7 +17,7 @@ router.get('/login', (req, res) => {
   })
 })
 
-router.post('/login', async (req, res, next) => {
+router.post('/login', validateUserFields,  async (req, res, next) => {
   const { email, password } = req.body
 
   try {
