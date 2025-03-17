@@ -2,11 +2,9 @@ import express from 'express'
 const router = express.Router()
 import Product from '../models/Product.js'
 import isAuthenticated from '../middlewares/auth.js'
+import validateProductFilters from '../middlewares/validateProductFilters.js'
 
-router.get('/', async (req, res, next) => {
-  if (!req.session.userId) {
-    return res.redirect('/login')
-  }
+router.get('/', isAuthenticated, validateProductFilters, async (req, res, next) => {
   try {
     const filter = {}
     filter.owner = req.session.userId
@@ -56,10 +54,7 @@ router.get('/', async (req, res, next) => {
   }
 })
 
-router.get('/add', (req, res) => {
-  if (!req.session.userId) {
-    return res.redirect('/login')
-  }
+router.get('/add', isAuthenticated, (req, res) => {
 
   res.render('product-form', {
     session: req.session,
@@ -80,6 +75,7 @@ router.post('/add', isAuthenticated, async (req, res, next) => {
       owner: req.session.userId
     });
     await product.save()
+    req.flash('success', "Producto creado correctamente");
     res.redirect('/products')
 })
 

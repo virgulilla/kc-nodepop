@@ -4,6 +4,7 @@ import path, {dirname} from 'path'
 import cookieParser from 'cookie-parser'
 import logger from 'morgan'
 import session from 'express-session'
+import flash from 'connect-flash'
 import indexRouter from './routes/index.js'
 import authRouter from './routes/auth.js'
 import productsRouter from './routes/products.js'
@@ -33,6 +34,13 @@ app.use(session({
   resave: false,
   saveUninitialized: false
 }))
+
+app.use(flash())
+
+app.use((req, res, next) => {
+  res.locals.flashMessages = req.flash();
+  next();
+});
 
 app.use('/', authRouter)
 app.use('/', indexRouter)

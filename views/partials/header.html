@@ -26,3 +26,22 @@
         </header>
 </div>
   <main class="container">
+    <% if (flashMessages.error && flashMessages.error.length > 0) { %>
+        <div class="alert alert-danger">
+            <ul>
+                <% flashMessages.error.forEach(function(message) { %>
+                <li><%= message %></li>
+                <% }); %>
+            </ul>
+        </div>
+    <% } %>
+
+    <% if (flashMessages.success && flashMessages.success.length > 0) { %>
+        <div class="alert alert-success">
+          <ul>
+            <% flashMessages.success.forEach(function(message) { %>
+              <li><%= message %></li>
+            <% }); %>
+          </ul>
+        </div>
+    <% } %>
