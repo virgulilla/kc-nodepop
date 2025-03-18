@@ -41,8 +41,8 @@
         </select>
       </div>
 
-      <button type="submit" class="btn btn-primary">Aplicar Filtros</button>
-      <a href="/products" class="btn btn-secondary">Limpiar</a>
+      <button type="submit" class="btn btn-secondary">Aplicar Filtros</button>
+      <a href="/products" class="btn btn-default">Limpiar</a>
     </form>
   </aside>
 
@@ -51,7 +51,7 @@
 
     <div class="products-header">
       <h2>Mis Productos</h2>
-      <a href="/products/add" class="btn btn-success">+ Nuevo Producto</a>
+      <a href="/products/add" class="btn btn-secondary">+ Nuevo Producto</a>
     </div>
 
     <% if (products.length === 0) { %>
@@ -65,8 +65,8 @@
             
             <div class="product-info">
               <h3><%= product.name %></h3>
-              <p><strong>Precio:</strong> <%= product.price %>€</p>
-              <p><strong>Tags:</strong> <%= product.tags.join(', ') %></p>
+              <p class="product-price"> <%= product.price %> €</p>
+              <p> <%- product.tags.map(tag => `<span>${tag}</span>`).join(' ') %></p>
 
               <div class="product-actions">
                 <form action="/products/<%= product._id %>/delete" method="POST" onsubmit="return confirm('¿Estás seguro de eliminar este producto?');">                  

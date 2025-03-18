@@ -4,6 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title><%= appName %></title>
+  <link rel="stylesheet" href="/stylesheets/normalize.css" />
   <link rel="stylesheet" href="/stylesheets/style.css" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-..." crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
@@ -12,7 +13,7 @@
         <header>
             <div class="container header-content">
             <h1 class="logo"><a href="/"><%= appName %></a></h1>
-            <div class="w-100 searchbox_SearchBox--header__x9wkQ"><form name="searchbox" class="position-relative d-flex searchbox-form_SearchBox__form__dJdo_ searchbox-form_SearchBox__form--header__5f7SY"><div class="w-100 d-flex align-items-center searchbox-form_SearchBox__wrapper__6HWA_"><img class="searchbox-form_SearchBox__icon--magnifier__yXxdh" src="https://web-static.wallapop.com/nextjs/_next/static/media/search-icon.6745f472.svg" width="20" height="20" alt="Search Icon Magnifier"><div class="searchbox-form_SearchBox__fakePlaceholder__VhWWB w-100 position-absolute pl-5"><span> Busca </span></div><input id="searchbox-form-input" type="search" class="w-100 searchbox-form_SearchBox__input__kl64p" autocomplete="off" value=""></div></form><div class="searchbox_SearchBox__suggestionsWrapper__zqHqK"><div class="position-relative"></div></div></div>
+            <div class="w-100 searchbox_SearchBox--header__x9wkQ"><form name="searchbox" class="position-relative d-flex searchbox-form_SearchBox__form__dJdo_ searchbox-form_SearchBox__form--header__5f7SY"><div class="w-100 d-flex align-items-center searchbox-form_SearchBox__wrapper__6HWA_"><img class="searchbox-form_SearchBox__icon--magnifier__yXxdh" src="https://web-static.wallapop.com/nextjs/_next/static/media/search-icon.6745f472.svg" width="20" height="20" alt="Search Icon Magnifier"><div class="searchbox-form_SearchBox__fakePlaceholder__VhWWB w-100 position-absolute pl-5"></div><input id="searchbox-form-input" type="search" class="w-100 searchbox-form_SearchBox__input__kl64p" autocomplete="off" value=""></div></form><div class="searchbox_SearchBox__suggestionsWrapper__zqHqK"><div class="position-relative"></div></div></div>
             <div class="top-ctas">
                 <% if (!session.userId) { %>
                     <div class="login-wrapper">

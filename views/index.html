@@ -3,26 +3,33 @@
 <main class="container">
   <!-- Hero Section -->
   <section class="hero">
-    <h2>Compra y vende fácilmente con Nodepop</h2>
-    <p>Descubre la forma más rápida de encontrar gangas cerca de ti. Publica tus productos en segundos y llega a miles de usuarios.</p>
-    <% if (!session.userId) { %>
-      <a href="/login" class="btn btn-primary">Empieza ahora</a>
-    <% } else { %>
-      <a href="/products" class="btn btn-primary">Ver productos</a>
-    <% } %>
+    <div class="panel-left">
+        <h2><span>Compra y vende artículos</span> de segunda mano.</h2>      
+      <% if (!session.userId) { %>
+        <a href="/login" class="btn btn-primary"><i class="fa fa-plus"></i>  Vender ahora</a>
+      <% } else { %>
+        <a href="/products" class="btn btn-primary"><i class="fa fa-plus"></i>  Vender ahora</a>
+      <% } %>
+    </div>
+    <div class="panel-right">
+      <img src="/images/hero-slide-1.avif" alt="Chica mirando mobil">
+    </div>    
   </section>
 
   <!-- Features Section -->
   <section class="features">
     <div class="feature">
+      <i class="fas fa-upload fa-3x"></i>
       <h3>Publica en segundos</h3>
       <p>Sube tus productos de forma sencilla y empieza a vender desde ya. Solo necesitas una foto y un precio.</p>
     </div>
     <div class="feature">
+      <i class="fa-brands fa-rocketchat fa-3x"></i>
       <h3>Chatea con compradores</h3>
       <p>Contacta fácilmente con los interesados y cierra tus ventas de manera rápida y segura.</p>
     </div>
     <div class="feature">
+      <i class="fa-solid fa-magnifying-glass fa-3x"></i>
       <h3>Encuentra lo que buscas</h3>
       <p>Explora miles de productos de segunda mano: móviles, coches, moda, y mucho más a precios imbatibles.</p>
     </div>

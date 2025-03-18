@@ -1,20 +1,20 @@
-# 📦 Nodepop
+# Nodepop
 
 Nodepop es una aplicación web **SSR** construida con **Node.js**, **Express.js**, **EJS** y **MongoDB**, que permite la compra y venta de artículos de segunda mano.
 
 ---
 
-## 📝 Descripción del proyecto
+## Descripción del proyecto
 
 Nodepop es un servicio donde los usuarios pueden:
-- Publicar anuncios de productos de segunda mano.
+- Autenticarse usando su email y password
 - Buscar productos filtrando por tags, precio y nombre.
 - Ver solo sus propios productos.
 - Crear y eliminar sus propios anuncios.
   
 ---
 
-## 🚀 Tecnologías utilizadas
+## Tecnologías utilizadas
 - Node.js
 - Express.js
 - MongoDB / Mongoose
@@ -22,7 +22,6 @@ Nodepop es un servicio donde los usuarios pueden:
 - Express-session
 - bcrypt
 - ESLint
-- Docker (opcional para MongoDB)
 
 ---
 
@@ -30,11 +29,11 @@ Nodepop es un servicio donde los usuarios pueden:
 
 - Node.js (>= 18.x)
 - npm
-- MongoDB en local o Docker
+- MongoDB en local. Descargar de: https://www.mongodb.com/try/download/community
 
 ---
 
-## ⚙️ Instalación paso a paso
+## Instalación paso a paso
 
 ### 1. Clonar el repositorio
 
@@ -57,16 +56,10 @@ PORT=3000
 
 ## Inicialización de la base de datos
 
-- Si tienes MongoDB instalado localmente
+- Si descargaste e instalaste MongoDB asegurate de que está el serivicio corriendo.
+    Entra en la consola dentro del proyecto y ejecutar:
 
 ```bash
-mongod --dbpath /ruta/a/tu/data/db
-npm run initDB
-```
-
-- Si quieres usar Docker
-```bash
-docker run -d --name nodepop-mongo -p 27017:27017 mongo:6
 npm run initDB
 ```
 
@@ -76,27 +69,13 @@ npm run initDB
 npm start
 ```
 
+o con nodemon
+
+```bash
+npm run dev
+```
+
+
 ## Usuarios de prueba
 - user1@example.com Contraseña: 1234
 - user2@example.com Contraseña: 1234
-
-## Listar productos
-
-Ruta GET /products
-
-- Paginación con skip y limit
-- Filtros:
-    - tag → work, lifestyle, motor, mobile
-    - price → Ejemplo 10-50, 10-, -50, 50
-    - name → Busca productos cuyo nombre empiece por el valor
-
-Ejemplo: 
-```bash    
-GET http://localhost:3000/products?tag=mobile&name=ip&price=50-&skip=0&limit=2&sort=price
-```
-
-## Crear producto
-Ruta: POST /products
-
-## Eliminar producto
-Ruta: DELETE /products/:id

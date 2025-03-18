@@ -8,6 +8,11 @@ body {
   background-color: #f9f9f9;
 }
 
+a {
+  text-decoration: none;
+  color: black;
+}
+
 .container {
   width: 100%;
   margin: 0 auto;
@@ -92,7 +97,6 @@ header {
     border-radius: 100px;
     display: flex;
     justify-content: center;
-    padding: 0px 24px;
     text-decoration: none;
     padding: 10px;
   }
@@ -146,7 +150,7 @@ footer {
 
 /* Botón secundario */
 .btn-secondary {
-  background-color: #6c757d;
+  background-color: #015354;
   color: #fff;
 }
 
@@ -177,11 +181,38 @@ footer {
 ========================== */
 .hero {
   text-align: center;
-  padding: 4rem 1rem;
-  background-color: #fff;
+  padding: 0 10%;
   margin-bottom: 2rem;
   border-radius: 8px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  background-color: rgb(233, 255, 180);
+  display: flex;
+  align-items: flex-start;
+
+  .panel-left {
+    max-width: 25%;
+    color: #015354;
+    text-align: left;
+    font-weight: 400;
+
+    h2 {
+      font-size: 40px;
+    }
+
+    span {
+      font-weight: 700;
+    }
+
+    a {
+      color: white;
+      background-color: #015354;
+      border-radius: 25px;
+    }
+  }
+
+  .panel-right img {
+    background-size: cover;
+  }
 }
 
 .hero h2 {
@@ -206,12 +237,20 @@ footer {
 }
 
 .feature {
-  background-color: #fff;
-  padding: 2rem;
-  flex: 1 1 300px;
-  border-radius: 8px;
+  background-color: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  padding: 24px;
   text-align: center;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  transition: transform 0.3s, box-shadow 0.3s;
+
+  i {
+    color: #015354;
+  }
+}
+.feature:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
 }
 
 .feature h3 {
@@ -222,8 +261,8 @@ footer {
    CALL TO ACTION SECTION
 ========================== */
 .cta {
-  background-color: #333;
-  color: #fff;
+  background-color: rgb(233, 255, 180);
+  color: #015354;
   text-align: center;
   padding: 3rem 1rem;
   border-radius: 8px;
@@ -323,6 +362,7 @@ footer {
   overflow: hidden;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
   transition: transform 0.2s ease;
+  border: 1px solid #ccc;
 }
 
 .product-card:hover {
@@ -347,6 +387,19 @@ footer {
   margin-top: 1rem;
   display: flex;
   justify-content: flex-end;
+}
+
+.product-info span {
+  padding: 7px;
+  background-color: rgb(61, 210, 186);
+  border-radius: 25px;
+  color: black;
+  font-weight: 500;
+}
+
+.product-price {
+  font-size: 1.4rem;
+  font-weight: 800;
 }
 
 .products-section-with-sidebar {
@@ -480,12 +533,6 @@ footer {
   font-size: 2rem;
   color: #dc3545;
   margin-bottom: 1.5rem;
-}
-
-.error-message {
-  font-size: 1.2rem;
-  margin-bottom: 1rem;
-  color: #333;
 }
 
 .error-status {
