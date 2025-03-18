@@ -5,12 +5,14 @@ import cookieParser from 'cookie-parser'
 import logger from 'morgan'
 import session from 'express-session'
 import flash from 'connect-flash'
-import indexRouter from './routes/index.js'
-import authRouter from './routes/auth.js'
-import productsRouter from './routes/products.js'
+import { indexRouter } from './routes/index.js'
+import { authRouter }  from './routes/auth.js'
+import { productsRouter } from './routes/products.js'
 import { fileURLToPath } from 'url'
 
 const app = express()
+
+app.disable('x-powered-by')
 
 // Obtener __dirname en ESM
 const __filename = fileURLToPath(import.meta.url)
@@ -44,7 +46,6 @@ app.use((req, res, next) => {
 
 app.use('/', authRouter)
 app.use('/', indexRouter)
-app.use('/login', authRouter)
 app.use('/products', productsRouter)
 
 // catch 404 and forward to error handler

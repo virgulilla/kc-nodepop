@@ -1,0 +1,31 @@
+<%- include('partials/header.html') %>
+
+<section class="login-section">
+  <h2>Únete a Nodepop</h2>
+
+  <form method="POST" action="/signup" class="form-box">
+    <div class="form-group">
+      <label for="email">Email:</label>
+      <input type="email" id="email" name="email" required />
+    </div>
+
+    <div class="form-group">
+      <label for="password">Contraseña:</label>
+      <input type="password" id="password" name="password" required />
+    </div>
+
+    <div class="form-group checkbox">
+      <input type="checkbox" name="newsletter"/>
+      <div>Quiero recibir comunicaciones sobre promociones y novedades de Nodepop</div>
+    </div>
+
+    <div class="form-group checkbox">
+      <input type="checkbox" name="policy" required/>
+      <div>He leído y acepto las Condiciones de uso y Política de privacidad de Nodepop</div>
+    </div>
+
+    <button type="submit" class="btn btn-secondary">Crear una cuenta</button>
+  </form>
+</section>
+
+<%- include('partials/footer.html') %>

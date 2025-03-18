@@ -3,9 +3,9 @@ import User from '../models/User.js'
 import bcrypt from 'bcrypt'
 import {validateUserFields} from '../middlewares/auth.js'
 
-const router = express.Router()
+export const authRouter = express.Router()
 
-router.get('/login', (req, res) => {
+authRouter.get('/login', (req, res) => {
 
   if (req.session.userId) {
     return res.redirect('/products')
@@ -16,7 +16,7 @@ router.get('/login', (req, res) => {
   })
 })
 
-router.post('/login', validateUserFields,  async (req, res, next) => {
+authRouter.post('/login', validateUserFields,  async (req, res, next) => {
   const { email, password } = req.body
 
   try {
@@ -42,10 +42,26 @@ router.post('/login', validateUserFields,  async (req, res, next) => {
   }
 })
 
-router.get('/logout', (req, res) => {
+authRouter.get('/signup', (req, res) => {
+
+  if (req.session.userId) {
+    return res.redirect('/products')
+  }
+
+  res.render('signup', { session: req.session})
+})
+
+authRouter.post('/signup', async (req, res) => {
+  req.flash('error', 'Pendiente implementación de registro')
+  const flashMessages = {
+    error: req.flash('error'),
+    success: req.flash('success'),
+  };
+  return res.status(500).render('signup', { flashMessages,  session: req.session })
+})
+
+authRouter.get('/logout', (req, res) => {
   req.session.destroy(() => {
     res.redirect('/')
   })
 })
-
-export default router

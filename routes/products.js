@@ -1,10 +1,10 @@
 import express from 'express'
-const router = express.Router()
 import Product from '../models/Product.js'
 import {isAuthenticated} from '../middlewares/auth.js'
 import validateProductFilters from '../middlewares/validateProductFilters.js'
+export const productsRouter = express.Router()
 
-router.get('/', isAuthenticated, validateProductFilters, async (req, res, next) => {
+productsRouter.get('/', isAuthenticated, validateProductFilters, async (req, res, next) => {
   try {
     const filter = {}
     filter.owner = req.session.userId
@@ -54,7 +54,7 @@ router.get('/', isAuthenticated, validateProductFilters, async (req, res, next) 
   }
 })
 
-router.get('/add', isAuthenticated, (req, res) => {
+productsRouter.get('/add', isAuthenticated, (req, res) => {
 
   res.render('product-form', {
     session: req.session,
@@ -62,7 +62,7 @@ router.get('/add', isAuthenticated, (req, res) => {
   })
 })
 
-router.post('/add', isAuthenticated, async (req, res, next) => {
+productsRouter.post('/add', isAuthenticated, async (req, res, next) => {
   const { name, price, tags, image } = req.body;
     const allowedTags = ['work', 'lifestyle', 'motor', 'mobile']
     const normalizedTags = Array.isArray(tags) ? tags : [tags] 
@@ -80,7 +80,7 @@ router.post('/add', isAuthenticated, async (req, res, next) => {
 })
 
 
-router.post('/:id/delete', isAuthenticated, async (req, res, next) => {
+productsRouter.post('/:id/delete', isAuthenticated, async (req, res, next) => {
   if (!req.session.userId) {
     return res.redirect('/login')
   }
@@ -100,7 +100,3 @@ router.post('/:id/delete', isAuthenticated, async (req, res, next) => {
     next(err);
   }
 })
-
-
-
-export default router
