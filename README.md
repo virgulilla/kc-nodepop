@@ -47,7 +47,11 @@ npm install
 ```bash
 npm install
 ```
-### 3. Variables de entorno (crea un .env)
+### 3. Variables de entorno
+
+- Renombra .env.example a .env
+
+Por defecto tiene las siguientes constantes para conectar a base de datos y establecer el puerto del servidor.
 
 ```bash
 MONGODB_URI=mongodb://127.0.0.1:27017/nodepop

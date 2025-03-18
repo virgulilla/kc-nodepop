@@ -1,12 +1,5 @@
-import mongoose from 'mongoose'
 import bcrypt from 'bcrypt'
-
-const userSchema = mongoose.Schema({
-  email: { type: String, required: true, unique: true },
-  password: { type: String, required: true }
-})
-
-const User = mongoose.model('User', userSchema)
+import { User } from './User.js'
 
 class UserModel {
 

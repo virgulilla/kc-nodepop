@@ -1,11 +1,19 @@
 import connectMongoose from './lib/connectMongoose.js'
-import Product from './models/Product.js'
-import User from './models/User.js'
+import { Product } from './models/Product.js'
+import { User } from './models/User.js'
 import bcrypt from 'bcrypt'
 import Chance from 'chance'
+import readline from 'node:readline/promises'
 
 async function initDB() {
-  await connectMongoose()
+  const connection = await connectMongoose()
+
+  const answer = await ask('Are you sure you want to delete database collections? (n)')
+  if (answer.toLowerCase() !== 'y') {
+    console.log('Operation aborted.')
+    connection.close()
+    process.exit()
+  }
 
   await Promise.all([
     Product.deleteMany(),
@@ -36,9 +44,21 @@ async function initDB() {
   await Product.insertMany(products)
 
   console.log('Base de datos inicializada correctamente')
+  connection.close()
   process.exit()
 }
 
 initDB().catch(err => {
   console.error('Error inicializando la base de datos', err)
 })
+
+async function ask(question) {
+  const rl = readline.createInterface({
+    input: process.stdin,
+    output: process.stdout
+  })
+
+  const result = await rl.question(question)
+  rl.close()
+  return result
+}
