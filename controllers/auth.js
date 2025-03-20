@@ -17,14 +17,8 @@ export class UserController {
   
       if (!user) {
         req.flash('error', 'Credenciales incorrectas')
-  
-        const flashMessages = {
-          error: req.flash('error'),
-          success: req.flash('success')
-        }
-        res.locals.email = email
-        
-        return res.status(401).render('login', { flashMessages })
+        res.locals.email = email        
+        return res.redirect('/login')
       }
   
       req.session.userId = user._id
@@ -51,12 +45,7 @@ export class UserController {
     
         if (existingUser) {
           req.flash('error', 'El email ya está registrado')
-          const flashMessages = {
-            error: req.flash('error'),
-            success: req.flash('success')
-          }
-    
-          return res.status(400).render('signup', { flashMessages })
+          return res.redirect('/signup')
         }
     
         await UserModel.createUser({ email, password })

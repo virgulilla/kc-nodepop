@@ -9,6 +9,7 @@ import { indexRouter } from './routes/index.js'
 import { authRouter }  from './routes/auth.js'
 import { productsRouter } from './routes/products.js'
 import { fileURLToPath } from 'url'
+import { addFlashMessages } from './lib/flashmessages.js'
 
 const app = express()
 
@@ -31,15 +32,11 @@ app.use(cookieParser())
 app.use(express.static(path.join(__dirname, 'public')))
 app.use('/lib/nouislider', express.static('node_modules/nouislider/dist'));
 
-app.use(flash())
-
 app.use(sessionManager.sessionMiddleware)
 app.use(sessionManager.useSessionInViews)
 
-app.use((req, res, next) => {
-  res.locals.flashMessages = req.flash()
-  next()
-})
+app.use(flash())
+app.use(addFlashMessages)
 app.use('/', authRouter)
 app.use('/', indexRouter)
 app.use('/products', productsRouter)
@@ -57,8 +54,7 @@ app.use(function(err, req, res, next) {
   res.status(err.status || 500)
   res.render('error', {
     message: err.message || 'Algo salió mal',
-    error: req.app.get('env') === 'development' ? err : {},
-    session: req.session
+    error: req.app.get('env') === 'development' ? err : {}
   })
 })
 
