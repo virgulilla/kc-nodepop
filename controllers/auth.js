@@ -68,8 +68,12 @@ export class UserController {
       }
     }
 
-    static logout (req, res)  {
-      req.session.destroy(() => {
+    static logout (req, res, next)  {
+      req.session.regenerate(err => {
+        if (err) {
+          next(err)
+          return
+        }
         res.redirect('/')
       })
     }

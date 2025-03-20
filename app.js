@@ -34,10 +34,7 @@ app.use('/lib/nouislider', express.static('node_modules/nouislider/dist'));
 app.use(flash())
 
 app.use(sessionManager.sessionMiddleware)
-app.use((req, res, next) => {
-  res.locals.session = req.session
-  next()
-})
+app.use(sessionManager.useSessionInViews)
 
 app.use((req, res, next) => {
   res.locals.flashMessages = req.flash()
