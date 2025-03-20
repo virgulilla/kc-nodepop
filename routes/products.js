@@ -10,4 +10,6 @@ productsRouter.get('/add', isAuthenticated, ProductController.add)
 
 productsRouter.post('/add', isAuthenticated, ProductController.create)
 
+productsRouter.get('/:id', isAuthenticated, ProductController.getOne)
+
 productsRouter.post('/:id/delete', isAuthenticated, ProductController.delete)

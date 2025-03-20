@@ -55,7 +55,7 @@
     </div>
 
     <% if (products.length === 0) { %>
-      <p>No tienes productos aún.</p>
+      <p>No se ha encontrado productos.</p>
     <% } else { %>
       <div class="product-list">
         <% products.forEach(product => { %>
@@ -64,7 +64,7 @@
              alt="<%= product.name %>" class="product-image" />
             
             <div class="product-info">
-              <h3><%= product.name %></h3>
+              <h3><a href="/products/<%= product._id %>"><%= product.name %></a></h3>
               <p class="product-price"> <%= product.price %> €</p>
               <p> <%- product.tags.map(tag => `<span>${tag}</span>`).join(' ') %></p>
 

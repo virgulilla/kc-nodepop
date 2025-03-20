@@ -1,0 +1,24 @@
+<%- include('partials/header.html') %>
+
+<article class="product-card">
+  <div class="product-image">
+      <img src="<%= product.image %>" onerror="this.onerror=null;this.src='https://img.freepik.com/free-vector/images-concept-illustration_114360-218.jpg?t=st=1742221622~exp=1742225222~hmac=417eebf58d19fc9c829cfbacff7edde291755546892eadcaf4430c4c3fe50ce3&w=740'" alt="<%= product.name %>">
+  </div>
+
+  <div class="product-info">
+      <h2 class="product-name"><%= product.name %></h2>
+
+      <p class="product-price">
+          Precio: <span><%= product.price %> €</span>
+      </p>
+
+      <ul class="product-tags">
+          <% product.tags.forEach(function(tag) { %>
+              <li><%= tag %></li>
+          <% }); %>
+      </ul>
+  </div>
+</article>
+
+<%- include('partials/footer.html') %>
+

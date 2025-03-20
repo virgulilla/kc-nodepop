@@ -2,30 +2,45 @@ import ProductModel from '../models/ProductModel.js'
 
 export class ProductController {
     static async getAll (req, res) {
-          try {
-            const userId = req.session.userId
-        
-            const result = await ProductModel.getFilteredProducts({
-              userId,
-              ...req.query
-            })
-        
-            res.render('products', {
-              products: result.products,
-              currentPage: result.currentPage,
-              totalPages: result.totalPages,
-              totalProducts: result.totalProducts,
-              limit: result.limit,
-              session: req.session,
-              req
-            })
-        
-          } catch (err) {
-            next(err)
-          }
+      try {
+        const userId = req.session.userId
+    
+        const result = await ProductModel.getFilteredProducts({
+          userId,
+          ...req.query
+        })
+    
+        res.render('products', {
+          products: result.products,
+          currentPage: result.currentPage,
+          totalPages: result.totalPages,
+          totalProducts: result.totalProducts,
+          limit: result.limit,
+          session: req.session,
+          req
+        })
+    
+      } catch (err) {
+        next(err)
+      }
     }
 
-    static add (req, res) {
+    static async getOne (req, res, next) {
+      try {
+        const id = req.params.id
+        const userId = req.session.userId
+        const product = await ProductModel.getOne(id, userId)
+        res.render('product-card', {
+          product,
+          session: req.session
+        })
+      } catch (err) {
+          next(err)
+      }
+      
+    }
+
+    static add (req, res, next) {
       res.render('product-form', {
         session: req.session,
         error: null
@@ -61,7 +76,7 @@ export class ProductController {
         if (!deletedProduct) {
           return res.status(404).send('Producto no encontrado o no autorizado')
         }
-    
+        req.flash('success', "Producto eliminado correctamente")
         res.redirect('/products')
       } catch (err) {
         next(err)

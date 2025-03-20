@@ -1,7 +1,6 @@
 import connectMongoose from './lib/connectMongoose.js'
 import { Product } from './models/Product.js'
 import { User } from './models/User.js'
-import bcrypt from 'bcrypt'
 import Chance from 'chance'
 import readline from 'node:readline/promises'
 
@@ -20,10 +19,9 @@ async function initDB() {
     User.deleteMany()
   ])
 
-  const passwordHash = await bcrypt.hash('1234', 10)
   const users = await User.insertMany([
-    { email: 'user1@example.com', password: passwordHash },
-    { email: 'user2@example.com', password: passwordHash }
+    { email: 'user1@example.com', password: await User.hashPassword('1234') },
+    { email: 'user2@example.com', password: await User.hashPassword('1234') }
   ])
 
   const products = []

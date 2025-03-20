@@ -47,6 +47,13 @@ class ProductModel {
     }
   }
 
+  static async getOne (id, userId) {
+    return await Product.findOne({
+      _id: id,
+      owner: userId
+    })
+  }
+
   static async createProduct({ name, price, tags, image, owner }) {
     const allowedTags = ['work', 'lifestyle', 'motor', 'mobile']
     
@@ -65,17 +72,10 @@ class ProductModel {
   }
 
   static async deleteProductById({ productId, userId }) {
-    const product = await Product.findOne({
+    return await Product.findOneAndDelete({
       _id: productId,
       owner: userId
     })
-
-    if (!product) {
-      return null
-    }
-
-    await product.deleteOne()
-    return product
   }
 }
 
