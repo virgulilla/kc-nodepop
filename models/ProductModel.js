@@ -72,10 +72,18 @@ class ProductModel {
   }
 
   static async deleteProductById({ productId, userId }) {
-    return await Product.findOneAndDelete({
+    const product = await Product.findOne({
       _id: productId,
       owner: userId
     })
+
+    if (!product) {
+      return null
+    }
+
+    await product.deleteOne()
+    
+    return product
   }
 }
 

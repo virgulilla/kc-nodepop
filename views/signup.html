@@ -1,31 +1,90 @@
 <%- include('partials/header.html') %>
 
-<section class="login-section">
-  <h2>Únete a Nodepop</h2>
+<main class="flex items-center justify-center flex-1 bg-gray-100 px-4 py-12">
 
-  <form method="POST" action="/signup" class="form-box">
-    <div class="form-group">
-      <label for="email">Email:</label>
-      <input type="email" id="email" name="email" required />
-    </div>
+  <section class="bg-white w-full max-w-md rounded-lg shadow-lg p-8">
+    
+    <h2 class="text-2xl font-bold text-[#015556] mb-6 text-center">Únete a Nodepop</h2>
 
-    <div class="form-group">
-      <label for="password">Contraseña:</label>
-      <input type="password" id="password" name="password" required />
-    </div>
+    <% if (flashMessages.error && flashMessages.error.length > 0) { %>
+      <div class="mb-6 p-4 bg-red-100 text-red-700 rounded-lg text-sm">
+        <ul class="list-disc list-inside space-y-1">
+          <% flashMessages.error.forEach(function(message) { %>
+            <li><%= message %></li>
+          <% }); %>
+        </ul>
+      </div>
+    <% } %>
 
-    <div class="form-group checkbox">
-      <input type="checkbox" name="newsletter"/>
-      <div>Quiero recibir comunicaciones sobre promociones y novedades de Nodepop</div>
-    </div>
+    <form method="POST" action="/signup" class="space-y-6">
 
-    <div class="form-group checkbox">
-      <input type="checkbox" name="policy" required/>
-      <div>He leído y acepto las Condiciones de uso y Política de privacidad de Nodepop</div>
-    </div>
+      <!-- Email -->
+      <div>
+        <label for="email" class="block text-gray-700 font-medium mb-2">Email:</label>
+        <input
+          type="email"
+          id="email"
+          name="email"
+          required
+          class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#015556]"
+        />
+      </div>
 
-    <button type="submit" class="btn btn-secondary">Crear una cuenta</button>
-  </form>
-</section>
+      <!-- Password -->
+      <div>
+        <label for="password" class="block text-gray-700 font-medium mb-2">Contraseña:</label>
+        <input
+          type="password"
+          id="password"
+          name="password"
+          required
+          class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#015556]"
+        />
+      </div>
+
+      <!-- Newsletter Checkbox -->
+      <div class="flex items-start gap-3">
+        <input
+          type="checkbox"
+          id="newsletter"
+          name="newsletter"
+          class="mt-1 h-5 w-5 text-[#015556] border-gray-300 rounded focus:ring-[#015556]"
+        />
+        <label for="newsletter" class="text-gray-700 text-sm">
+          Quiero recibir comunicaciones sobre promociones y novedades de Nodepop.
+        </label>
+      </div>
+
+      <!-- Policy Checkbox (Required) -->
+      <div class="flex items-start gap-3">
+        <input
+          type="checkbox"
+          id="policy"
+          name="policy"
+          required
+          class="mt-1 h-5 w-5 text-[#015556] border-gray-300 rounded focus:ring-[#015556]"
+        />
+        <label for="policy" class="text-gray-700 text-sm">
+          He leído y acepto las <a href="#" class="text-[#015556] hover:underline">Condiciones de uso</a> y la <a href="#" class="text-[#015556] hover:underline">Política de privacidad</a> de Nodepop.
+        </label>
+      </div>
+
+      <!-- Submit Button -->
+      <button
+        type="submit"
+        class="w-full bg-[#015556] hover:bg-[#014046] text-white font-semibold py-3 px-6 rounded-lg transition"
+      >
+        Crear una cuenta
+      </button>
+    </form>
+
+    <p class="mt-6 text-center text-sm text-gray-600">
+      ¿Ya tienes una cuenta?
+      <a href="/login" class="text-[#015556] hover:underline">Inicia sesión</a>
+    </p>
+
+  </section>
+
+</main>
 
 <%- include('partials/footer.html') %>
