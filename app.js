@@ -3,7 +3,7 @@ import express from 'express'
 import path, {dirname} from 'path'
 import cookieParser from 'cookie-parser'
 import logger from 'morgan'
-import session from 'express-session'
+import * as sessionManager from './lib/sessionManager.js'
 import flash from 'connect-flash'
 import { indexRouter } from './routes/index.js'
 import { authRouter }  from './routes/auth.js'
@@ -31,19 +31,18 @@ app.use(cookieParser())
 app.use(express.static(path.join(__dirname, 'public')))
 app.use('/lib/nouislider', express.static('node_modules/nouislider/dist'));
 
-app.use(session({
-  secret: 'RHiiUHJi35XvhJyO86pwbRP26Fxrnaox',
-  resave: false,
-  saveUninitialized: false
-}))
-
 app.use(flash())
 
+app.use(sessionManager.sessionMiddleware)
 app.use((req, res, next) => {
-  res.locals.flashMessages = req.flash();
-  next();
-});
+  res.locals.session = req.session
+  next()
+})
 
+app.use((req, res, next) => {
+  res.locals.flashMessages = req.flash()
+  next()
+})
 app.use('/', authRouter)
 app.use('/', indexRouter)
 app.use('/products', productsRouter)

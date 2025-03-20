@@ -16,7 +16,6 @@ export class ProductController {
           totalPages: result.totalPages,
           totalProducts: result.totalProducts,
           limit: result.limit,
-          session: req.session,
           req
         })
     
@@ -31,8 +30,7 @@ export class ProductController {
         const userId = req.session.userId
         const product = await ProductModel.getOne(id, userId)
         res.render('product-card', {
-          product,
-          session: req.session
+          product
         })
       } catch (err) {
           next(err)
@@ -42,7 +40,6 @@ export class ProductController {
 
     static add (req, res, next) {
       res.render('product-form', {
-        session: req.session,
         error: null
       })
     }

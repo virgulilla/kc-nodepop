@@ -5,10 +5,8 @@ export class UserController {
     if (req.session.userId) {
       return res.redirect('/products')
     }
-  
-    res.render('login', {
-      session: req.session
-    })
+    res.locals.email = ''
+    res.render('login')
   }
 
   static async login (req, res, next)  {
@@ -24,8 +22,9 @@ export class UserController {
           error: req.flash('error'),
           success: req.flash('success')
         }
-  
-        return res.status(401).render('login', { flashMessages, session: req.session })
+        res.locals.email = email
+        
+        return res.status(401).render('login', { flashMessages })
       }
   
       req.session.userId = user._id
@@ -41,7 +40,7 @@ export class UserController {
       return res.redirect('/products')
     }
   
-    res.render('signup', { session: req.session })
+    res.render('signup')
   }
 
   static async register (req, res, next)  {
@@ -57,7 +56,7 @@ export class UserController {
             success: req.flash('success')
           }
     
-          return res.status(400).render('signup', { flashMessages, session: req.session })
+          return res.status(400).render('signup', { flashMessages })
         }
     
         await UserModel.createUser({ email, password })
