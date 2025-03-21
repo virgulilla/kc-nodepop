@@ -1,6 +1,9 @@
 # Nodepop
 
-Nodepop es una aplicación web **SSR** construida con **Node.js**, **Express.js**, **EJS** y **MongoDB**, que permite la compra y venta de artículos de segunda mano.
+
+Nodepop es una aplicación web **SSR** construida con **Node.js**, **Express.js**, **EJS** y **MongoDB**, que permite a los usuarios logueados visualizar, crear y gestionar sus propios productos de manera sencilla y eficiente.
+
+Este proyecto forma parte del módulo de Desarrollo backend con Node js del bootcamp Desarrollo Web de Keepcoding, donde se aplican conceptos clave como autenticación, rutas protegidas, gestión de datos con MongoDB y renderizado en el servidor utilizando EJS
 
 ---
 
@@ -8,6 +11,7 @@ Nodepop es una aplicación web **SSR** construida con **Node.js**, **Express.js*
 
 Nodepop es un servicio donde los usuarios pueden:
 - Autenticarse usando su email y password
+- Registrar usuarios
 - Buscar productos filtrando por tags, precio y nombre.
 - Ver solo sus propios productos.
 - Crear y eliminar sus propios anuncios.
@@ -38,7 +42,7 @@ Nodepop es un servicio donde los usuarios pueden:
 ### 1. Clonar el repositorio
 
 ```bash
-git clone https://github.com/virgulilla/kc-nodejs.git
+git clone git@github.com:virgulilla/kc-nodepop.git
 cd nodepop
 npm install
 ```
