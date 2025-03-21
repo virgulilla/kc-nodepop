@@ -22,10 +22,10 @@
     "http-errors": "~1.6.3",
     "mongoose": "^8.12.1",
     "morgan": "~1.9.1",
-    "nouislider": "^15.8.1",
-    "chance": "^1.1.12"
+    "nouislider": "^15.8.1"    
   },
-  "devDependencies": {    
+  "devDependencies": {
+    "chance": "^1.1.12",    
     "nodemon": "^3.1.9"
   }
 }
