@@ -5,36 +5,29 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title><%= appName %></title>
   
-  <!-- TailwindCSS -->
   <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
-
-  <!-- FontAwesome -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 <body class="bg-gray-100 text-gray-800 min-h-screen flex flex-col">
 
-  <!-- Header -->
   <header class="bg-white shadow">
     <div class="container mx-auto px-4 py-4 flex items-center justify-between">
       
-      <!-- Logo -->
       <h1 class="text-2xl font-bold text-[#015556]">
         <a href="/"><%= appName %></a>
       </h1>
   
-      <!-- Mobile menu button -->
       <button id="menu-toggle" class="md:hidden text-gray-600 focus:outline-none">
         <i class="fas fa-bars fa-lg"></i>
       </button>
   
-      <!-- Navigation + Search (Hidden on mobile, shown on desktop) -->
       <div class="hidden md:flex md:items-center md:gap-6 flex-1 justify-between ml-8">
   
-        <!-- Search Box -->
-        <form name="searchbox" class="relative flex items-center w-full max-w-md">
+        <form method="get" action="/products" name="searchbox" class="relative flex items-center w-full max-w-md">
           <input
             id="searchbox-form-input"
             type="search"
+            name="name"
             placeholder="Buscar productos..."
             autocomplete="off"
             class="w-full pl-10 pr-4 py-2 rounded-lg border border-gray-300 focus:ring-2 focus:ring-[#015556] focus:outline-none"
@@ -48,7 +41,6 @@
           />
         </form>
   
-        <!-- Top CTAs -->
         <div class="flex items-center gap-4">
           <% if (!session.userId) { %>
             <a href="/login" class="text-gray-600 hover:text-[#015556] transition">Regístrate o inicia sesión</a>
@@ -66,10 +58,8 @@
       </div>
     </div>
   
-    <!-- Mobile menu (hidden by default) -->
     <div id="mobile-menu" class="md:hidden hidden px-4 pb-4">
       
-      <!-- Search Box (Mobile) -->
       <form name="searchbox" class="relative flex items-center w-full mb-4">
         <input
           id="searchbox-form-input-mobile"
@@ -87,7 +77,6 @@
         />
       </form>
   
-      <!-- Top CTAs (Mobile) -->
       <div class="flex flex-col gap-4">
         <% if (!session.userId) { %>
           <a href="/login" class="block text-gray-600 hover:text-[#015556] transition">Regístrate o inicia sesión</a>
@@ -115,10 +104,8 @@
   </script>
   
 
-  <!-- Main content -->
   <main class="container mx-auto px-4 py-8 flex-1">
 
-    <!-- Flash Messages -->
     <% if (flashMessages.error && flashMessages.error.length > 0) { %>
       <div class="mb-4 p-4 bg-red-100 text-red-700 rounded-lg">
         <ul class="list-disc list-inside space-y-1">

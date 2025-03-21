@@ -51,17 +51,18 @@ npm install
 
 - Renombra .env.example a .env
 
-Por defecto tiene las siguientes constantes para conectar a base de datos y establecer el puerto del servidor.
+Por defecto tiene las siguientes constantes para conectar a base de datos, puerto y token para la sesion del usuario.
 
 ```bash
 MONGODB_URI=mongodb://127.0.0.1:27017/nodepop
 PORT=3000
+SESSION_SECRET="VvUc#Y9<BGCQ4+gt_zhMmA"
 ```
 
 ## Inicialización de la base de datos
 
-- Si descargaste e instalaste MongoDB asegurate de que está el serivicio corriendo.
-    Entra en la consola dentro del proyecto y ejecutar:
+- Si descargaste e instalaste MongoDB asegurate de que está el servicio corriendo.
+    Entra en la consola dentro del proyecto y ejecuta:
 
 ```bash
 npm run initDB

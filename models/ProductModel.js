@@ -23,7 +23,7 @@ class ProductModel {
     }
 
     if (name) {
-      filter.name = new RegExp('^' + name, 'i')
+      filter.name = new RegExp(name, 'i')
     }
 
     const skip = (parseInt(page) - 1) * parseInt(limit)

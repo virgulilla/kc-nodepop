@@ -9,7 +9,7 @@ async function initDB() {
 
   const answer = await ask('Are you sure you want to delete database collections? (n)')
   if (answer.toLowerCase() !== 'y') {
-    console.log('Operation aborted.')
+    console.log('Operacion cancelada. India "y" si quieres inicialicar la base de datos ')
     connection.close()
     process.exit()
   }
@@ -33,7 +33,7 @@ async function initDB() {
       name: chance.sentence({ words: 3 }),
       price: chance.integer({ min: 10, max: 1000 }),
       image: imageUrl,
-      tags: chance.pickset(['mobile', 'motor', 'lifestyle'], 2),
+      tags: chance.pickset(['work','mobile', 'motor', 'lifestyle'], Math.floor(Math.random() * 4) +1 ),
       owner: chance.pickone([users[0]._id, users[1]._id])
     })
   }

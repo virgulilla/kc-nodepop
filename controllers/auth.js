@@ -44,7 +44,7 @@ export class UserController {
         const existingUser = await UserModel.findByEmail(email)
     
         if (existingUser) {
-          req.flash('error', 'El email ya está registrado')
+          req.flash('error', 'No se ha podido completar el registro. Por favor, verifica los datos ingresados.')
           return res.redirect('/signup')
         }
     

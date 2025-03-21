@@ -14,7 +14,6 @@
 
     <form action="/products/add" method="POST" class="space-y-6">
 
-      <!-- Nombre -->
       <div>
         <label for="name" class="block text-gray-700 mb-2">Nombre del producto:</label>
         <input
@@ -27,7 +26,6 @@
         />
       </div>
 
-      <!-- Precio -->
       <div>
         <label for="price" class="block text-gray-700 mb-2">Precio (€):</label>
         <input
@@ -40,7 +38,6 @@
         />
       </div>
 
-      <!-- Categorías -->
       <div>
         <label for="tags" class="block text-gray-700 mb-2">Categorías:</label>
         <select
@@ -57,7 +54,6 @@
         </select>        
       </div>
 
-      <!-- Imagen -->
       <div>
         <label for="image" class="block text-gray-700 mb-2">Nombre de la imagen (URL):</label>
         <div class="flex gap-2">
@@ -77,11 +73,9 @@
         </div>
 
         <div id="imagePreview" class="mt-4 flex justify-center">
-          <!-- Imagen se inyecta vía JS -->
         </div>
       </div>
 
-      <!-- Botones -->
       <div class="flex flex-col md:flex-row gap-4 mt-8">
         <button
           type="submit"
@@ -106,7 +100,6 @@
 <%- include('partials/footer.html') %>
 
 <script>
-  // Generador de imagen aleatoria
   const generateBtn = document.getElementById('generateImageBtn');
   const imageInput = document.getElementById('image');
   const imagePreview = document.getElementById('imagePreview');
