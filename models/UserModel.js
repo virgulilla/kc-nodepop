@@ -21,10 +21,11 @@ class UserModel {
     return user
   }
 
-  static async createUser({ email, password }) {
+  static async createUser({ name, email, password }) {
     const hashedPassword = await bcrypt.hash(password, 10)
 
     const user = new User({
+      name,
       email,
       password: hashedPassword
     })

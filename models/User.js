@@ -2,8 +2,9 @@ import mongoose, { Schema } from 'mongoose'
 import bcrypt from 'bcrypt'
 
 const userSchema = Schema({
-    email: { type: String, required: true, unique: true },
-    password: { type: String, required: true }
+  name: { type: String, required: true },  
+  email: { type: String, required: true, unique: true },    
+  password: { type: String, required: true }
 })
 
 userSchema.statics.hashPassword = (clearPassword) => {

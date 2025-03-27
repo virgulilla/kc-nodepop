@@ -65,6 +65,86 @@
     <% } %>
   </section>
 
+  <!-- Chat Section -->
+  <% if (session.userId) { %>
+    <section class="mt-12 p-6 bg-white rounded-lg shadow-md">
+      <h3 class="text-2xl font-semibold text-center mb-4">Chat Global</h3>
+
+      <div id="messages" class="border p-4 max-h-60 overflow-auto flex flex-col gap-2 bg-gray-50 rounded">
+        <% let lastDate = null; %>
+        <% messages.forEach(function(message) { %>
+          <% const messageDate = new Date(message.createdAt); %>
+          <% const messageDay = messageDate.toLocaleDateString(); %>
+
+          <% if (lastDate !== messageDay) { %>
+            <div class="text-center text-xs text-gray-500 py-2">
+              <span><%= messageDay %></span>
+            </div>
+          <% } %>
+
+          <div class="flex <%= message.sender === session.userName ? 'justify-end' : 'justify-start' %>">
+            <div class="<%= message.sender === session.userName ? 'bg-green-200' : 'bg-white' %> rounded-lg px-4 py-2 shadow text-sm max-w-[75%]">
+              <% if (message.sender !== session.userName) { %>
+                <p class="text-[#015556] whitespace-pre-line break-words"><%= message.sender %></p>
+              <% } %>
+              <p class="text-gray-800 whitespace-pre-line break-words"><%= message.message %></p>
+              <div class="text-xs text-gray-500 text-right mt-1">
+                <%= new Date(message.createdAt).toLocaleTimeString() %>
+              </div>
+            </div>
+          </div>
+
+          <% lastDate = messageDay; %>
+        <% }); %>
+      </div>
+
+      <div class="flex gap-2 mt-4">
+        <input type="text" id="messageInput" class="flex-1 p-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-400" placeholder="Escribe un mensaje..." />
+        <button id="sendButton" class="bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded">Enviar</button>
+      </div>
+    </section>
+  <% } %>
+
 </main>
 
 <%- include('partials/footer.html') %>
+
+<script src="/socket.io/socket.io.js"></script>
+<script>
+  const socket = io()
+
+  // Si el usuario está logueado, puedes enviar mensajes sin rooms
+  if (<%= session.userId ? 'true' : 'false' %>) {
+    
+    const currentSender = '<%= session.userName %>'
+    
+    socket.emit('joinGlobalChat')
+
+    document.getElementById('sendButton').addEventListener('click', () => {
+      const messageInput = document.getElementById('messageInput')
+      const message = messageInput.value.trim()
+
+      if (message) {
+        socket.emit('sendMessage', { sender: currentSender, message })
+        messageInput.value = ''
+      }
+    })
+
+    socket.on('newMessage', (data) => {
+      const messagesDiv = document.getElementById('messages')
+      const messageWrapper = document.createElement('div')
+      messageWrapper.className = 'flex ' + (data.sender === currentSender ? 'justify-end' : 'justify-start')
+
+      let messageHtml = `
+        <div class="${data.sender === currentSender ? 'bg-green-200' : 'bg-white'} rounded-lg px-4 py-2 shadow text-sm max-w-[75%]">
+          ${data.sender !== currentSender ? `<p class="text-gray-800 whitespace-pre-line break-words">${data.sender}</p>` : ''}
+          <p class="text-gray-800 whitespace-pre-line break-words">${data.message}</p>
+          <div class="text-xs text-gray-500 text-right mt-1">${new Date(data.createdAt).toLocaleTimeString()}</div>
+        </div>
+      `;
+      messageWrapper.innerHTML = messageHtml;
+      messagesDiv.appendChild(messageWrapper)
+      messagesDiv.scrollTop = messagesDiv.scrollHeight
+    })
+  }
+</script>

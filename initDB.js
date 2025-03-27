@@ -20,8 +20,8 @@ async function initDB() {
   ])
 
   const users = await User.insertMany([
-    { email: 'user1@example.com', password: await User.hashPassword('1234') },
-    { email: 'user2@example.com', password: await User.hashPassword('1234') }
+    { name: 'don pepito', email: 'user1@example.com', password: await User.hashPassword('1234') },
+    { name: 'don jose', email: 'user2@example.com', password: await User.hashPassword('1234') }
   ])
 
   const products = []

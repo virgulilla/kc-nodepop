@@ -22,6 +22,7 @@ export class UserController {
       }
   
       req.session.userId = user._id
+      req.session.userName = user.name ?? 'anonimo'
   
       res.redirect('/products')
     } catch (err) {
@@ -38,7 +39,7 @@ export class UserController {
   }
 
   static async register (req, res, next)  {
-      const { email, password } = req.body
+      const { name, email, password } = req.body
     
       try {
         const existingUser = await UserModel.findByEmail(email)
@@ -48,7 +49,7 @@ export class UserController {
           return res.redirect('/signup')
         }
     
-        await UserModel.createUser({ email, password })
+        await UserModel.createUser({ name, email, password })
     
         req.flash('success', 'Usuario registrado correctamente. Inicia sesión.')
         res.redirect('/login')
